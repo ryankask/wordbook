@@ -1,0 +1,27 @@
+{
+  "name": "wordbook",
+  "version": "0.0.1",
+  "homepage": "https://github.com/ryankask/wordbook",
+  "authors": [
+    "Ryan Kaskel <dev@ryankaskel.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "requirejs": "2.1.8",
+    "jquery": "2.0.3",
+    "angular": "1.2.0-rc.1",
+    "angular-route": "1.2.0-rc.1"
+  },
+  "devDependencies": {
+    "angular-scenario": "1.2.0-rc.1",
+    "angular-mocks": "1.2.0-rc.1"
+  }
+}
