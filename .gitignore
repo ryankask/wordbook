@@ -15,6 +15,7 @@ pom.xml
 .lein-repl*
 .crossover-cljs
 .repl
+.nrepl-port
 .sass-cache
 *.log
 .DS_Store
