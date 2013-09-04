@@ -16,49 +16,16 @@
         <ul class="title-area">
           <li class="name"><h1><a href="/index.html">Wordbook</a></h1></li>
         </ul>
+        <section class="top-bar-section">
+          <ul class="right">
+            <li><a href="#/">Wordbook</a></li>
+            <li><a href="#/login">Login</a></li>
+          </ul>
+        </section>
       </nav>
     </div>
 
-    <section id="login">
-      <div class="row">
-        <div class="columns">
-          <h1>Login</h1>
-        </div>
-      </div>
-      <form id="login-form">
-        <div class="row">
-          <div class="small-6 columns">
-            <input type="text" placeholder="Username">
-          </div>
-        </div>
-        <div class="row">
-          <div class="small-6 columns">
-            <input type="text" placeholder="Password">
-          </div>
-        </div>
-        <div class="row">
-          <div class="small-6 columns">
-            <input class="small button" type="submit" value="Log in">
-          </div>
-        </div>
-      </form>
-    </section>
-
-    <section id="wordbook">
-      <div class="row">
-        <div class="columns">
-          <h1>Wordbook</h1>
-        </div>
-      </div>
-      <div class="row">
-        <div class="small-6 columns">
-          <h2>Search</h2>
-        </div>
-        <div class="small-6 columns">
-          <h2>Add</h2>
-        </div>
-      </div>
-    </section>
+    <div ng-view></div>
 
     <script data-main="js/main" src="/components/requirejs/require.js"></script>
   </body>

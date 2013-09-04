@@ -6,7 +6,11 @@ define(['angular'], function(angular) {
   var controllers = angular.module('wordbook.controllers', []);
 
   controllers.controller('WordbookCtrl', function($scope) {
-    console.log('WordbookCtrl loaded');
+
+  });
+
+  controllers.controller('LoginCtrl', function($scope) {
+
   });
 
   return controllers;
