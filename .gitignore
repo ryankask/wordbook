@@ -3,7 +3,7 @@
 /lib
 /classes
 /checkouts
-/resources/public/js/lib
+/resources/public/js/vendor/*.map
 /out
 pom.xml
 *.jar

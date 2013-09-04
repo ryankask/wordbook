@@ -11,17 +11,58 @@
     <script src="js/vendor/modernizr.min.js"></script>
   </head>
   <body>
-    <div class="row">
-      <div class="small-12 columns">
-        <h1>Welcome to WordBook</h1>
-      </div>
+    <div class="contain-to-grid">
+      <nav class="top-bar">
+        <ul class="title-area">
+          <li class="name"><h1><a href="/index.html">Wordbook</a></h1></li>
+        </ul>
+      </nav>
     </div>
 
-    <script src="js/vendor/zepto.min.js"></script>
+    <section id="login">
+      <div class="row">
+        <div class="columns">
+          <h1>Login</h1>
+        </div>
+      </div>
+      <form id="login-form">
+        <div class="row">
+          <div class="small-6 columns">
+            <input type="text" placeholder="Username">
+          </div>
+        </div>
+        <div class="row">
+          <div class="small-6 columns">
+            <input type="text" placeholder="Password">
+          </div>
+        </div>
+        <div class="row">
+          <div class="small-6 columns">
+            <input class="small button" type="submit" value="Log in">
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <section id="wordbook">
+      <div class="row">
+        <div class="columns">
+          <h1>Wordbook</h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-6 columns">
+          <h2>Search</h2>
+        </div>
+        <div class="small-6 columns">
+          <h2>Add</h2>
+        </div>
+      </div>
+    </section>
+
+    <script src="js/vendor/jquery.min.js"></script>
     <script src="js/vendor/foundation.min.js"></script>
+    <script src="js/vendor/angular.min.js"></script>
     <script src="js/lib/app.js"></script>
-    <script>
-      wordbook.core.init();
-    </script>
   </body>
 </html>
