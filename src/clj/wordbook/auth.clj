@@ -1,6 +1,8 @@
 (ns wordbook.auth
   (require [ring.util.response :refer [response redirect]]
-           [compojure.core :refer [defroutes GET POST]]))
+           [compojure.core :refer [defroutes GET POST]]
+           [clojurewerkz.scrypt.core :as scrypt]
+           [wordbook.datastore :as datastore]))
 
 (defn current-user [request]
   (get-in request [:session :user]))
@@ -14,8 +16,10 @@
       (handler request))))
 
 (defn authenticate [email password]
-  (and (= email "test@example.com")
-       (= password "password")))
+  (if-let [user (datastore/get-user-by-email email)]
+    (try
+      (scrypt/verify password (:password user))
+      (catch IllegalArgumentException e))))
 
 (defroutes routes
   (GET "/check" request
