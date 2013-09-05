@@ -10,9 +10,10 @@
 
 
 (def session-settings
-  {:cookie-attrs {:secure (or (and (System/getenv "WB_PRODUCTION") true) false)}
-   :store (cookie-store {:key (get (System/getenv) "WB_SECRET_KEY"
-                                   "change me please")})})
+  (if-let [secret-key (System/getenv "WB_SECRET_KEY")]
+    {:cookie-attrs {:secure (or (and (System/getenv "WB_PRODUCTION") true) false)}
+     :store (cookie-store {:key secret-key})}
+    (throw (Exception. "You must set a secret key."))))
 
 (defroutes routes
   (context "/auth" [] auth/routes)
