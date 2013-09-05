@@ -16,7 +16,6 @@ define(['angular'], function(angular) {
         scope.isAuthenticated = User.isAuthenticated;
         scope.logout = function() {
           User.logout().then(function() {
-            console.log('in here');
             $location.url('/login');
           });
         };
