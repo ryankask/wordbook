@@ -9,8 +9,18 @@ define(['angular'], function(angular) {
 
   });
 
-  controllers.controller('LoginCtrl', function($scope) {
+  controllers.controller('LoginCtrl', function($scope, $location, User) {
+    $scope.creds = { invalid: false };
 
+    $scope.login = function() {
+      User.login($scope.creds.email, $scope.creds.password).then(
+        function() {
+          $location.url('/');
+        },
+        function() {
+          $scope.creds.invalid = true;
+        });
+    };
   });
 
   return controllers;

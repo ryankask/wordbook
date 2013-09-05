@@ -4,15 +4,20 @@
     <p>You must be logged in to use Wordbook. Please enter your credentials below.</p>
   </div>
 </div>
-<form id="login-form">
-  <div class="row">
+<form ng-submit="login()">
+  <div class="row" ng-show="creds.invalid">
     <div class="small-6 columns">
-      <input type="text" placeholder="Username">
+      <div class="alert-box alert">Invalid email address and/or password.</div>
     </div>
   </div>
   <div class="row">
     <div class="small-6 columns">
-      <input type="text" placeholder="Password">
+      <input type="text" placeholder="Email address" required ng-model="creds.email">
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-6 columns">
+      <input type="password" placeholder="Password" required ng-model="creds.password">
     </div>
   </div>
   <div class="row">

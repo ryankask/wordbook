@@ -4,8 +4,15 @@
             [compojure.handler :as handler]
             [org.httpkit.server :as httpkit]
             [ring.middleware.json :as json]
+            [ring.middleware.session.cookie :refer [cookie-store]]
             [wordbook.auth :as auth]
             [wordbook.api :as api]))
+
+
+(def session-settings
+  {:cookie-attrs {:secure (or (and (System/getenv "WB_PRODUCTION") true) false)}
+   :store (cookie-store {:key (get (System/getenv) "WB_SECRET_KEY"
+                                   "change me please")})})
 
 (defroutes routes
   (context "/auth" [] auth/routes)
@@ -15,7 +22,7 @@
 
 (def app
   (-> routes
-      handler/site
+      (handler/site {:session session-settings})
       json/wrap-json-params
       json/wrap-json-response))
 

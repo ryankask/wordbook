@@ -24,13 +24,40 @@ define(['angular'], function(angular) {
 
         return deferred.promise;
       },
-      login: function(email) {
-        email = email;
-        isAuthenticated = true;
+      login: function(email, password) {
+        var deferred = $q.defer(),
+            data = { email: email, password: password };
+
+        $http.post('/auth/login', data).then(function(result) {
+          if (result.data.isAuthenticated) {
+            email = email;
+            isAuthenticated = true;
+            deferred.resolve();
+          } else {
+            isAuthenticated = false;
+            deferred.reject();
+          }
+        });
+
+        return deferred.promise;
       },
       logout: function() {
-        email = null;
-        isAuthenticated = false;
+        var deferred = $q.defer();
+
+        $http.post('/auth/logout').then(function(result) {
+          if (!result.data.isAuthenticated) {
+            email = null;
+            isAuthenticated = false;
+            deferred.resolve();
+          } else {
+            deferred.reject();
+          }
+        });
+
+        return deferred.promise;
+      },
+      isAuthenticated: function() {
+        return isAuthenticated;
       }
     };
   });
