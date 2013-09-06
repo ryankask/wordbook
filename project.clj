@@ -10,7 +10,8 @@
                  [compojure "1.1.5"]
                  [http-kit "2.1.10"]
                  [com.ashafa/clutch "0.4.0-RC1"]
-                 [clojurewerkz/scrypt "1.0.0"]]
+                 [clojurewerkz/scrypt "1.0.0"]
+                 [clj-time "0.6.0"]]
   :plugins [[lein-ring "0.8.7"]]
   :main wordbook.core
   :ring {:handler wordbook.core/app})

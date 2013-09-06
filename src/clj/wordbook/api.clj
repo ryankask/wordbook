@@ -1,8 +1,10 @@
 (ns wordbook.api
   (:require [clojure.set :refer [subset?]]
             [ring.util.response :refer [response]]
-            [compojure.core :refer [defroutes POST PUT]]
-            [wordbook.datastore :as datastore]))
+            [compojure.core :refer [defroutes GET POST PUT]]
+            [wordbook.datastore :as datastore]
+            [clj-time.core :refer [now]]
+            [clj-time.format :refer [formatters unparse]]))
 
 (def required-word-fields #{:word :pos :definition})
 
@@ -23,10 +25,17 @@
             (= pos-kw :noun) {:gender (keyword (.toLowerCase gender))}
             (and (= pos-kw :verb) (not (nil? perfective))) {:perfective perfective}))))
 
+(defn timestamp-word [word]
+  (let [updated (unparse (:date-time formatters) (now))]
+    (merge word
+           {:updated updated}
+           (if-not (:_id word) {:created updated}))))
+
 (defn create-or-update-word [params]
   (if (valid-word? params)
     (-> params
         format-word
+        timestamp-word
         datastore/put-word
         response)
     (response {:error "Invalid word."})))
@@ -40,4 +49,7 @@
       (cond
        (nil? id) (response {:error "No ID provided"})
        (nil? (:_rev params)) (response {:error "No revision provided"})
-       :else (create-or-update-word (assoc params :_id id))))))
+       :else (create-or-update-word (assoc params :_id id)))))
+
+  (GET "/words/latest" []
+    (response (datastore/get-latest-words 10))))

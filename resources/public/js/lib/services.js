@@ -71,6 +71,9 @@ define(['angular'], function(angular) {
         var id = wordData._id;
         delete wordData._id;
         return $http.put('/api/words/' + id, wordData);
+      },
+      latest: function() {
+        return $http.get('/api/words/latest');
       }
     };
   });

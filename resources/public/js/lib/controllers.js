@@ -25,6 +25,9 @@ define(['angular'], function(angular) {
 
     $scope.partsOfSpeech = ['Noun', 'Adjective', 'Verb', 'Adverb'];
     $scope.wordForm = { action: 'Add' };
+    Words.latest().success(function(latestWords) {
+      $scope.latestWords = latestWords;
+    });
     $scope.recentWords = [];
 
     $scope.createOrUpdateWord = function() {
@@ -63,8 +66,6 @@ define(['angular'], function(angular) {
           $scope.wordForm.message = '"' + data.word  + '" successfully added/updated';
           $scope.wordForm.word = {};
 
-          data.pos = data.pos.charAt(0).toUpperCase() + data.pos.slice(1);
-
           if (recentWordIds.indexOf(data._id) < 0) {
             $scope.recentWords.push(data);
             recentWordIds.push(data._id);
@@ -86,6 +87,7 @@ define(['angular'], function(angular) {
 
     $scope.loadWord = function(word) {
       $scope.wordForm.action = 'Update';
+      word.pos = word.pos.charAt(0).toUpperCase() + word.pos.slice(1);
       $scope.wordForm.word = word;
       $scope.wordForm._id = word._id;
       $scope.wordForm._rev = word._rev;

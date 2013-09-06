@@ -14,7 +14,14 @@
       </div>
     </form>
     <hr>
-    <h2>Recently Added Word</h2>
+    <h2>Latest Words</h2>
+    <ul>
+      <li ng-repeat="word in latestWords">
+        <a ng-click="loadWord(word)">{{ word.word }}</a>
+      </li>
+    </ul>
+    <hr>
+    <h2>Recently Added Words</h2>
     <ul>
       <li ng-repeat="word in recentWords">
         <a ng-click="loadWord(word)">{{ word.word }}</a>

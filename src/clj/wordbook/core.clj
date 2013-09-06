@@ -6,9 +6,7 @@
             [ring.middleware.json :as json]
             [ring.middleware.session.cookie :refer [cookie-store]]
             [wordbook.auth :as auth]
-            [wordbook.api :as api]
-            [wordbook.datastore :as datastore]))
-
+            [wordbook.api :as api]))
 
 (def session-settings
   (if-let [secret-key (System/getenv "WB_SECRET_KEY")]
@@ -35,5 +33,4 @@
      (start-server 8080)))
 
 (defn -main []
-  (datastore/init)
   (start-server))

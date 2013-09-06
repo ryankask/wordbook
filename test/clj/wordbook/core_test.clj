@@ -22,8 +22,8 @@
 (def test-updated-adjective {:word "green"
                              :pos "Adjective"
                              :definition "Colored like grass or emeralds."
-                             :_id "123"})
-
+                             :_id "123"
+                             :_rev "abc"})
 
 (deftest api-valid-word?
   (testing "Required fields"
@@ -52,4 +52,9 @@
 
   (testing "Format updated adjective"
     (is (= (set (keys (api/format-word test-updated-adjective)))
-           #{:word :pos :definition :_id}))))
+           #{:word :pos :definition :_id :_rev}))))
+
+(deftest api-timestamp-word
+  (testing "Add timestamps"
+    (is (= (set (keys (api/timestamp-word {}))) #{:created :updated})))
+    (is (= (set (keys (api/timestamp-word {:_id 1}))) #{:updated :_id})))
