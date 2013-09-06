@@ -94,7 +94,7 @@ define(['angular'], function(angular) {
 
     $scope.showCreateForm = function() {
       $scope.wordForm.action = 'Add';
-      $scope.wordForm.word = {};
+      delete $scope.wordForm.word;
       delete $scope.wordForm.message;
     };
   });

@@ -103,8 +103,8 @@
         <div class="small-9 small-offset-3 columns">
           <input class="small button" type="submit" value="{{ wordForm.action }} Word">
           <input class="small button" type="reset" value="Clear">
-          <button class="small button" ng-click="showCreateForm()"
-                  ng-show="wordForm.action == 'Update'">Back to Add Form</button>
+          <input class="small button" type="button" value="Back to Add Form"
+                 ng-click="showCreateForm()" ng-show="wordForm.action == 'Update'">
         </div>
       </div>
     </form>
