@@ -57,4 +57,10 @@
 (deftest api-timestamp-word
   (testing "Add timestamps"
     (is (= (set (keys (api/timestamp-word {}))) #{:created :updated})))
-    (is (= (set (keys (api/timestamp-word {:_id 1}))) #{:updated :_id})))
+    (is (= (set (keys (api/timestamp-word {:_id 1}))) #{:updated :_id}))
+    (is (= (set (keys (api/timestamp-word {:_id 1 :created 1})))
+           #{:created :updated :_id}))
+    (let [word {:created 1 :updated 1}
+          timestamped-word (api/timestamp-word word)]
+      (is (= (:created timestamped-word) 1))
+      (is (not (= (:updated timestamped-word) 1)))))

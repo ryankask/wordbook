@@ -29,7 +29,8 @@
   (let [updated (unparse (:date-time formatters) (now))]
     (merge word
            {:updated updated}
-           (if-not (:_id word) {:created updated}))))
+           (if-not (or (contains? word :_id) (contains? word :created))
+             {:created updated}))))
 
 (defn create-or-update-word [params]
   (if (valid-word? params)
