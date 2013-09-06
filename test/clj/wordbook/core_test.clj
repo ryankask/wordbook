@@ -1,7 +1,55 @@
 (ns wordbook.core-test
   (:require [clojure.test :refer :all]
-            [wordbook.core :refer :all]))
+            [wordbook.api :as api]))
 
-(deftest a-test
-  (testing "FIXME, I fail."
-    (is (= 0 1))))
+(def test-full-word {:word "Clojure"
+                     :pos "Noun"
+                     :gender "n"
+                     :definition "A programming language"
+                     :perfective ""
+                     :notes "These are some notes"})
+
+(def test-noun (dissoc test-full-word :perfective :notes))
+
+(def test-verb {:word "write"
+                :pos "Verb"
+                :definition "Mark symbols on a surface"})
+
+(def test-adjective {:word "green"
+                     :pos "Adjective"
+                     :definition "Colored like grass or emeralds."})
+
+(def test-updated-adjective {:word "green"
+                             :pos "Adjective"
+                             :definition "Colored like grass or emeralds."
+                             :_id "123"})
+
+
+(deftest api-valid-word?
+  (testing "Required fields"
+    (is (api/valid-word? test-full-word))
+    (is (api/valid-word? test-noun))
+    (is (api/valid-word? test-verb))
+    (is (api/valid-word? test-adjective))
+    (is (not (api/valid-word? {})))
+    (is (not (api/valid-word? (dissoc test-noun :word))))
+    (is (not (api/valid-word? (dissoc test-noun :pos))))
+    (is (not (api/valid-word? (dissoc test-noun :definition))))
+    (is (not (api/valid-word? (dissoc test-noun :gender))))))
+
+(deftest api-format-word
+  (testing "Format noun"
+    (let [formatted-word (api/format-word test-full-word)]
+      (is (= (set (keys formatted-word)) #{:word :pos :gender :definition :notes}))
+      (is (= (:pos formatted-word) :noun)))
+    (is (= (set (keys (api/format-word test-noun)))
+           #{:word :pos :gender :definition})))
+
+  (testing "Format verb"
+    (is (= (set (keys (api/format-word test-verb))) #{:word :pos :definition})))
+    (is (= (set (keys (api/format-word (assoc test-verb :perfective "write"))))
+           #{:word :pos :perfective :definition}))
+
+  (testing "Format updated adjective"
+    (is (= (set (keys (api/format-word test-updated-adjective)))
+           #{:word :pos :definition :_id}))))

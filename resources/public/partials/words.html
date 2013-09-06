@@ -1,0 +1,105 @@
+<div class="row">
+  <div class="columns">
+    <h1>Wordbook</h1>
+  </div>
+</div>
+<div class="row">
+  <div class="small-6 columns">
+    <h2>Search</h2>
+    <form id="search-form" novalidate>
+      <div class="row">
+        <div class="small-9 columns">
+          <input type="text" ng-model="wordSearch.term" placeholder="Search...">
+        </div>
+      </div>
+    </form>
+    <hr>
+    <h2>Recently Added Word</h2>
+    <ul>
+      <li ng-repeat="word in recentWords">
+        <a ng-click="loadWord(word)">{{ word.word }}</a>
+      </li>
+    </ul>
+  </div>
+  <div class="small-6 columns">
+    <h2>{{ wordForm.action }} Word</h2>
+    <form id="new-word-form" ng-submit="createOrUpdateWord()">
+      <div class="row" ng-show="wordForm.message">
+        <div class="small-12 columns">
+          <div class="alert-box {{ wordForm.alert }}">{{ wordForm.message }}</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-3 columns">
+          <label for="word-form-word" class="right inline">Word</label>
+        </div>
+        <div class="small-9 columns">
+          <input id="word-form-word" type="text" ng-model="wordForm.word.word" required>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-3 columns">
+          <label for="word-form-pos" class="right inline">Part of Speech</label>
+        </div>
+        <div class="small-9 columns">
+          <select id="word-form-pos" type="text" ng-model="wordForm.word.pos"
+                  ng-options="pos for pos in partsOfSpeech" required>
+            <option value="">Select a part of speech...</option>
+          </select>
+        </div>
+      </div>
+      <div class="row" ng-show="wordForm.word.pos == 'Verb'">
+        <div class="small-3 columns">
+          <label for="word-form-perfective" class="right inline">Perfective</label>
+        </div>
+        <div class="small-9 columns">
+          <input id="word-form-perfective" type="text" ng-model="wordForm.word.perfective">
+        </div>
+      </div>
+      <div class="row" ng-show="wordForm.word.pos == 'Noun'">
+        <div class="small-3 columns">
+          <label for="word-form-gender" class="right inline">Gender</label>
+        </div>
+        <div class="small-3 columns">
+          <label>
+            Masculine <input type="radio" ng-model="wordForm.word.gender" value="m">
+          </label>
+        </div>
+        <div class="small-3 columns">
+          <label>
+            Feminine <input type="radio" ng-model="wordForm.word.gender" value="f">
+          </label>
+        </div>
+        <div class="small-3 columns">
+          <label>
+            Neuter <input type="radio" ng-model="wordForm.word.gender" value="n">
+          </label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-3 columns">
+          <label for="word-form-definition" class="right inline">Definition</label>
+        </div>
+        <div class="small-9 columns">
+          <textarea id="word-form-definition" rows="6" ng-model="wordForm.word.definition" required></textarea>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-3 columns">
+          <label for="word-form-notes" class="right inline">Notes</label>
+        </div>
+        <div class="small-9 columns">
+          <textarea id="word-form-notes" rows="6" ng-model="wordForm.word.notes"></textarea>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-9 small-offset-3 columns">
+          <input class="small button" type="submit" value="{{ wordForm.action }} Word">
+          <input class="small button" type="reset" value="Clear">
+          <button class="small button" ng-click="showCreateForm()"
+                  ng-show="wordForm.action == 'Update'">Back to Add Form</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

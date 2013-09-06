@@ -18,3 +18,7 @@
 (defn get-user-by-email [email]
   (let [users (clutch/get-view db design-doc-id :users-by-email {:key email})]
     (:value (first users))))
+
+(defn put-word [word-data]
+  (let [word-entity (merge {:type "word"} word-data)]
+    (clutch/put-document db word-entity)))

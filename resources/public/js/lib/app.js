@@ -18,8 +18,8 @@ define(
 
     app.config(function($routeProvider) {
       $routeProvider.when('/', {
-        templateUrl: 'partials/index.html',
-        controller: 'WordbookCtrl',
+        templateUrl: 'partials/words.html',
+        controller: 'WordsCtrl',
         loginRequired: true
       }).when('/login', {
         templateUrl: 'partials/login.html',

@@ -62,5 +62,18 @@ define(['angular'], function(angular) {
     };
   });
 
+  services.factory('Words', function($http) {
+    return {
+      create: function(wordData) {
+        return $http.post('/api/words', wordData);
+      },
+      update: function(wordData) {
+        var id = wordData._id;
+        delete wordData._id;
+        return $http.put('/api/words/' + id, wordData);
+      }
+    };
+  });
+
   return services;
 });
