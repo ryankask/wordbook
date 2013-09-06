@@ -35,9 +35,8 @@ define(['angular'], function(angular) {
     $scope.recentWords = [];
 
     $scope.createOrUpdateWord = function() {
-      var fields = ['word', 'pos', 'definition', 'notes'],
-          formData = {},
-          wordAction;
+      var fields = ['_id', '_rev', 'word', 'pos', 'definition', 'notes'],
+          formData = {};
 
       if ($scope.wordForm.word.pos === 'Noun') {
         if (!$scope.wordForm.word.gender) {
@@ -56,15 +55,7 @@ define(['angular'], function(angular) {
 
       formData.pos = formData.pos.toLowerCase();
 
-      if ($scope.wordForm.action === 'Add') {
-        wordAction = Words.create;
-      } else {
-        wordAction = Words.update;
-        formData._id = $scope.wordForm._id;
-        formData._rev = $scope.wordForm._rev;
-      }
-
-      wordAction(formData).success(function(data) {
+      Words.put(formData).success(function(data) {
         if (data._id) {
           $scope.wordForm.alert = 'success';
           $scope.wordForm.message = '"' + data.word  + '" successfully added/updated';
@@ -93,16 +84,12 @@ define(['angular'], function(angular) {
       $scope.wordForm.action = 'Update';
       word.pos = word.pos.charAt(0).toUpperCase() + word.pos.slice(1);
       $scope.wordForm.word = word;
-      $scope.wordForm._id = word._id;
-      $scope.wordForm._rev = word._rev;
       delete $scope.wordForm.message;
     };
 
     $scope.showCreateForm = function() {
       $scope.wordForm.action = 'Add';
       $scope.wordForm.word = {};
-      delete $scope.wordForm._id;
-      delete $scope.wordForm._rev;
       delete $scope.wordForm.message;
     };
   });

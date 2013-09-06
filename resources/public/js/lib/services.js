@@ -64,13 +64,15 @@ define(['angular'], function(angular) {
 
   services.factory('Words', function($http) {
     return {
-      create: function(wordData) {
-        return $http.post('/api/words', wordData);
-      },
-      update: function(wordData) {
+      put: function(wordData) {
         var id = wordData._id;
-        delete wordData._id;
-        return $http.put('/api/words/' + id, wordData);
+
+        if (id && wordData._rev) {
+          delete wordData._id;
+          return $http.put('/api/words/' + id, wordData);
+        }
+
+        return $http.post('/api/words', wordData);
       },
       latest: function() {
         return $http.get('/api/words/latest');
