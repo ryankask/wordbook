@@ -21,7 +21,13 @@
                :words-by-update-time
                {:map "function(doc) {
                         if (doc.type === 'word') {
-                          emit([doc.updated, doc.word], null)
+                          emit(doc.updated, null)
+                        }
+                      }"}
+               :words-by-word
+               {:map "function(doc) {
+                        if (doc.type === 'word') {
+                          emit(doc.word, null)
                         }
                       }"}}}))))
 
