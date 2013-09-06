@@ -20,8 +20,7 @@ define(['angular'], function(angular) {
   });
 
   controllers.controller('WordsCtrl', function($scope, User, Words) {
-    var recentWordIds = [],
-        i;
+    var i;
 
     if (!User.isAuthenticated()) {
       return;
@@ -61,17 +60,20 @@ define(['angular'], function(angular) {
           $scope.wordForm.message = '"' + data.word  + '" successfully added/updated';
           $scope.wordForm.word = {};
 
-          if (recentWordIds.indexOf(data._id) < 0) {
-            $scope.recentWords.push(data);
-            recentWordIds.push(data._id);
-          } else {
-            for (i = 0; i < $scope.recentWords.length; i++) {
-              if ($scope.recentWords[i]._id === data._id) {
-                $scope.recentWords.splice(i, 1);
-                break;
-              }
+          for (i = 0; i < $scope.recentWords.length; i++) {
+            if ($scope.recentWords[i]._id === data._id) {
+              $scope.recentWords.splice(i, 1);
+              break;
             }
-            $scope.recentWords.unshift(data);
+          }
+          $scope.recentWords.unshift(data);
+
+          // Check if the word is one of the latest ones and update it
+          for (i = 0; i < $scope.latestWords.length; i++) {
+            if ($scope.latestWords[i]._id === data._id) {
+              $scope.latestWords[i] = data;
+              break;
+            }
           }
         }
       }).error(function() {
@@ -81,9 +83,12 @@ define(['angular'], function(angular) {
     };
 
     $scope.loadWord = function(word) {
+      var wordCopy = angular.copy(word);
+      wordCopy.pos = wordCopy.pos.charAt(0).toUpperCase() + wordCopy.pos.slice(1);
+      $scope.wordForm.word = wordCopy;
+
+      // Reset display-related form properties
       $scope.wordForm.action = 'Update';
-      word.pos = word.pos.charAt(0).toUpperCase() + word.pos.slice(1);
-      $scope.wordForm.word = word;
       delete $scope.wordForm.message;
     };
 
