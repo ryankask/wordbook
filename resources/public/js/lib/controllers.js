@@ -19,9 +19,13 @@ define(['angular'], function(angular) {
     };
   });
 
-  controllers.controller('WordsCtrl', function($scope, Words) {
+  controllers.controller('WordsCtrl', function($scope, User, Words) {
     var recentWordIds = [],
         i;
+
+    if (!User.isAuthenticated()) {
+      return;
+    }
 
     $scope.partsOfSpeech = ['Noun', 'Adjective', 'Verb', 'Adverb'];
     $scope.wordForm = { action: 'Add' };
