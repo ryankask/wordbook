@@ -1,10 +1,11 @@
 (ns wordbook.core
-  (:require [compojure.core :refer [defroutes context]]
+  (:require [compojure.core :refer [defroutes context GET]]
             [compojure.route :as route]
             [compojure.handler :as handler]
             [org.httpkit.server :as httpkit]
             [ring.middleware.json :as json]
             [ring.middleware.session.cookie :refer [cookie-store]]
+            [ring.util.response :refer [resource-response]]
             [wordbook.auth :as auth]
             [wordbook.api :as api]))
 
@@ -15,6 +16,7 @@
     (throw (Exception. "You must set a secret key."))))
 
 (defroutes routes
+  (GET "/" [] (resource-response "index.html" {:root "public"}))
   (context "/auth" [] auth/routes)
   (context "/api" [] (auth/wrap-auth-required api/routes))
   (route/resources "/")
