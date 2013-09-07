@@ -22,16 +22,17 @@ define(['angular'], function(angular) {
   controllers.controller('WordsCtrl', function($scope, User, Words) {
     var i;
 
-    if (!User.isAuthenticated()) {
-      return;
-    }
-
     $scope.partsOfSpeech = ['Noun', 'Adjective', 'Verb', 'Adverb'];
     $scope.wordForm = { action: 'Add' };
-    Words.latest().success(function(latestWords) {
-      $scope.latestWords = latestWords;
-    });
     $scope.recentWords = [];
+
+    User.authCheck().then(function(isAuthenticated) {
+      if (isAuthenticated) {
+        Words.latest().success(function(latestWords) {
+          $scope.latestWords = latestWords;
+        });
+      }
+    });
 
     $scope.createOrUpdateWord = function() {
       var fields = ['_id', '_rev', 'word', 'pos', 'definition', 'notes'],
