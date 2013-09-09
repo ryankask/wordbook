@@ -3,8 +3,6 @@
   :url "https://words.kaskel.info"
   :license {:name "The MIT License (MIT)"
             :url "https://github.com/ryankask/wordbook/blob/master/LICENSE"}
-  :source-paths ["src/clj"]
-  :test-paths ["test/clj"]
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [ring/ring-json "0.2.0"]
                  [compojure "1.1.5"]
