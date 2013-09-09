@@ -41,7 +41,7 @@
     (clutch/put-document db word-entity)))
 
 (defn get-latest-words [limit]
-  (map #(:doc %) (clutch/get-view db design-doc-name :words-by-update-time
-                                  {:limit limit
-                                   :include_docs true
-                                   :descending true})))
+  (map :doc (clutch/get-view db design-doc-name :words-by-update-time
+                             {:limit limit
+                              :include_docs true
+                              :descending true})))
