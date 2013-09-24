@@ -20,8 +20,6 @@ define(['angular'], function(angular) {
   });
 
   controllers.controller('WordsCtrl', function($scope, User, Words) {
-    var i;
-
     $scope.partsOfSpeech = ['Noun', 'Adjective', 'Verb', 'Adverb'];
     $scope.wordForm = { action: 'Add' };
     $scope.recentWords = [];
@@ -36,7 +34,8 @@ define(['angular'], function(angular) {
 
     $scope.createOrUpdateWord = function() {
       var fields = ['_id', '_rev', 'word', 'pos', 'definition', 'notes'],
-          formData = {};
+          formData = {},
+          i;
 
       if ($scope.wordForm.word.pos === 'Noun') {
         if (!$scope.wordForm.word.gender) {
@@ -56,6 +55,8 @@ define(['angular'], function(angular) {
       formData.pos = formData.pos.toLowerCase();
 
       Words.put(formData).success(function(data) {
+        var i;
+
         if (data._id) {
           $scope.wordForm.alert = 'success';
           $scope.wordForm.message = '"' + data.word  + '" successfully added/updated';
