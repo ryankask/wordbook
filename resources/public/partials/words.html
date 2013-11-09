@@ -4,10 +4,15 @@
     <form id="search-form" novalidate>
       <div class="row">
         <div class="small-9 columns">
-          <input type="text" ng-model="wordSearch.term" placeholder="Search...">
+          <input type="text" ng-model="searchTerm" ng-change="search()" placeholder="Search...">
         </div>
       </div>
     </form>
+    <ul>
+      <li ng-repeat="word in foundWords">
+        <a ng-click="loadWord(word)">{{ word.word }}</a>
+      </li>
+    </ul>
     <hr>
     <h2>Latest Words</h2>
     <ul>

@@ -53,4 +53,7 @@
        :else (create-or-update-word (assoc params :_id id)))))
 
   (GET "/words/latest" []
-    (response (datastore/get-latest-words 10))))
+    (response (datastore/get-latest-words 10)))
+
+  (GET "/words/search" [q limit]
+    (response (datastore/search q (or limit 20)))))

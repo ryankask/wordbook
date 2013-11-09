@@ -40,8 +40,16 @@
   (let [word-entity (merge {:type "word"} word-data)]
     (clutch/put-document db word-entity)))
 
+(defn query-view [view params]
+  (map :doc (clutch/get-view db design-doc-name view params)))
+
 (defn get-latest-words [limit]
-  (map :doc (clutch/get-view db design-doc-name :words-by-update-time
-                             {:limit limit
+  (query-view :words-by-update-time {:limit limit
+                                     :include_docs true
+                                     :descending true}))
+
+(defn search [query limit]
+  (query-view :words-by-word {:limit limit
                               :include_docs true
-                              :descending true})))
+                              :startkey query
+                              :endkey (str query "\ufff0")}))

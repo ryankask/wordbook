@@ -23,6 +23,7 @@ define(['angular'], function(angular) {
     $scope.partsOfSpeech = ['Noun', 'Adjective', 'Verb', 'Adverb'];
     $scope.wordForm = { action: 'Add' };
     $scope.recentWords = [];
+    $scope.foundWords = [];
 
     User.authCheck().then(function(isAuthenticated) {
       if (isAuthenticated) {
@@ -55,28 +56,20 @@ define(['angular'], function(angular) {
       formData.pos = formData.pos.toLowerCase();
 
       Words.put(formData).success(function(data) {
-        var i;
-
         if (data._id) {
           $scope.wordForm.alert = 'success';
           $scope.wordForm.message = '"' + data.word  + '" successfully added/updated';
           $scope.wordForm.word = {};
 
-          for (i = 0; i < $scope.recentWords.length; i++) {
-            if ($scope.recentWords[i]._id === data._id) {
-              $scope.recentWords.splice(i, 1);
-              break;
-            }
-          }
+          // TODO: Centralize all words available
+
+          updateWord($scope.recentWords, data, function(i) {
+            $scope.recentWords.splice(i, 1);
+          });
           $scope.recentWords.unshift(data);
 
-          // Check if the word is one of the latest ones and update it
-          for (i = 0; i < $scope.latestWords.length; i++) {
-            if ($scope.latestWords[i]._id === data._id) {
-              $scope.latestWords[i] = data;
-              break;
-            }
-          }
+          updateWord($scope.latestWords, data);
+          updateWord($scope.foundWords, data);
         }
       }).error(function() {
         $scope.wordForm.alert = 'alert';
@@ -99,7 +92,29 @@ define(['angular'], function(angular) {
       delete $scope.wordForm.word;
       delete $scope.wordForm.message;
     };
+
+    $scope.search = function() {
+      if ($scope.searchTerm.length > 2) {
+        Words.search($scope.searchTerm).then(function(response) {
+          $scope.foundWords = response.data;
+        });
+      } else {
+        $scope.foundWords = null;
+      }
+    };
   });
+
+  function updateWord(collection, word, action) {
+    var action = action || function(i) {
+      collection[i] = word;
+    };
+
+    for (var i = 0; i < collection.length; i++) {
+      if (collection[i]._id === word._id) {
+        action(i, collection, word);
+      }
+    }
+  }
 
   return controllers;
 });

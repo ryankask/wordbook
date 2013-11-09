@@ -76,6 +76,9 @@ define(['angular'], function(angular) {
       },
       latest: function() {
         return $http.get('/api/words/latest');
+      },
+      search: function(query) {
+        return $http.get('/api/words/search?q=' + query);
       }
     };
   });
