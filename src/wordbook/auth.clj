@@ -34,5 +34,7 @@
         auth-response)))
 
   (POST "/logout" [:as {session :session}]
-    (-> (response {"isAuthenticated" false})
-        (assoc :session (assoc session :user nil)))))
+    (assoc
+        (response {"isAuthenticated" false})
+        :session
+        (assoc session :user nil))))
