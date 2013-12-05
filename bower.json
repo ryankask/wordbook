@@ -15,13 +15,13 @@
     "tests"
   ],
   "dependencies": {
-    "requirejs": "2.1.8",
     "jquery": "2.0.3",
-    "angular": "1.2.0",
-    "angular-route": "1.2.0"
+    "angular": "1.2.3",
+    "angular-route": "1.2.3",
+    "foundation": "zurb/bower-foundation#~5.0.2"
   },
   "devDependencies": {
-    "angular-scenario": "1.2.0",
-    "angular-mocks": "1.2.0"
+    "angular-scenario": "1.2.3",
+    "angular-mocks": "1.2.3"
   }
 }

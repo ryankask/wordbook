@@ -22,5 +22,7 @@ pom.xml
 \#*#
 .#*
 ._*
-resources/public/components
+resources/components
+resources/public/css
+resources/public/js
 node_modules

@@ -1,6 +1,6 @@
-/* global define */
+/* global angular */
 
-define(['angular'], function(angular) {
+(function() {
   'use strict';
 
   var controllers = angular.module('wordbook.controllers', []);
@@ -116,5 +116,4 @@ define(['angular'], function(angular) {
     }
   }
 
-  return controllers;
-});
+})();
