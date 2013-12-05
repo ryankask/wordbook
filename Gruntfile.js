@@ -21,7 +21,7 @@ module.exports = function(grunt) {
             'resources/components/jquery/jquery.min.js',
             'resources/components/angular/angular.min.js',
             'resources/components/angular-route/angular-route.min.js',
-            'resources/public/js/lib/*.js',
+            'resources/js/lib/*.js',
           ]
         }
       }
@@ -47,7 +47,7 @@ module.exports = function(grunt) {
       },
 
       js: {
-        files: 'resources/public/js/**/*.js',
+        files: 'resources/js/**/*.js',
         tasks: ['uglify']
       },
 
