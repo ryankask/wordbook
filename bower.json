@@ -16,12 +16,12 @@
   ],
   "dependencies": {
     "jquery": "2.0.3",
-    "angular": "1.2.3",
-    "angular-route": "1.2.3",
+    "angular": "1.2.7",
+    "angular-route": "1.2.7",
     "foundation": "zurb/bower-foundation#~5.0.2"
   },
   "devDependencies": {
-    "angular-scenario": "1.2.3",
-    "angular-mocks": "1.2.3"
+    "angular-scenario": "1.2.7",
+    "angular-mocks": "1.2.7"
   }
 }
