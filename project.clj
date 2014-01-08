@@ -6,7 +6,7 @@
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [ring/ring-json "0.2.0"]
                  [compojure "1.1.6"]
-                 [http-kit "2.1.13"]
+                 [http-kit "2.1.16"]
                  [com.ashafa/clutch "0.4.0-RC1"]
                  [clojurewerkz/scrypt "1.0.0"]
                  [clj-time "0.6.0"]]
